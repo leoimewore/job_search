@@ -31,8 +31,8 @@ jobs:
         with:
           push: true
           tags: |
-            job_search_app:v.${{github.run_number}}
-            job_search_app:latest
+            leoimewore/job_search_app:v.${{github.run_number}}
+            leoimewore/job_search_app:latest
 
 
 
