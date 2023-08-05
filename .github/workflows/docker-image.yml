@@ -110,7 +110,7 @@ jobs:
             wait-for-service-stability: true
 
         - name: Update Service
-          run:  aws ecs update-service --service run_service --cluster app_cluster --force-new-deployment
+          run:  aws ecs update-service --service ${{env.ECS_SERVICE}} --cluster $${{env.ECS_CLUSTER}} --task-definition ${{steps.task-def.outputs.task-definition }} --force-new-deployment
 
   
 
