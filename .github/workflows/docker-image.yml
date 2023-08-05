@@ -3,6 +3,17 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
+
+
+
+env: 
+  ECS_SERVICE: run_service
+
+  ECS_CLUSTER: app_cluster
+  
+  ECS_TASK_DEFINITION: jobs_app_taskdef
+
+  CONTAINER_NAME: docker-image
   
 
 jobs:
@@ -65,6 +76,25 @@ jobs:
           run: |
             docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
             docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+
+        - name: Fill in the new image ID in the Amazon ECS task definition
+          id: task
+          uses: aws-actions/amazon-ecs-render-task-definition@v1
+          with:
+            task-definition: ${{ env.ECS_TASK_DEFINITION }}
+            container-name: ${{ env.CONTAINER_NAME }}
+            image: ${{ steps.build-image.outputs.image }}
+
+
+
+        - name: Deploy Amazon ECS task ECS_TASK_DEFINITION
+          uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+          with:
+            task-definition: ${{ steps.task-def.outputs.task-definition }}
+            service: ${{ env.ECS_SERVICE }}
+            cluster: ${{ env.ECS_CLUSTER }}
+            wait-for-service-stability: true
             
 
 
