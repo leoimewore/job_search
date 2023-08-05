@@ -34,7 +34,7 @@ function Skills(props) {
     <section className="search_item">
       <div className="item">{props.skill}</div>
       <div className="icon_wrapper" onClick={handleDelete}>
-        <img src={logo1} />
+        <img src={logo1} alt="company logo"/>
       </div>
     </section>
   );
