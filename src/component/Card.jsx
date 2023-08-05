@@ -33,7 +33,7 @@ function Card(props) {
         <img src={props.imgUrl} alt="avatar" />
       </div>
       <section className="card_info">
-        <p className="card_info_flex_item">{props.company}</p>
+        <p className="card_info_flex_item">Cummins</p>
         <p className="card_info_flex_item">New!</p>
         <p className="card_info_flex_item">Featured</p>
         <h2>{props.position}</h2>
