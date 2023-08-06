@@ -13,7 +13,7 @@ env:
   
   ECS_TASK_DEFINITION: .github/workflows/task-definition.json
 
-  CONTAINER_NAME: docker-repo
+  CONTAINER_NAME: app-image
   
 
 jobs:
