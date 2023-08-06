@@ -11,7 +11,7 @@ env:
 
   ECS_CLUSTER: app_cluster
   
-  ECS_TASK_DEFINITION: .github/workflows/td.json
+  ECS_TASK_DEFINITION: .github/workflows/task-definition.json
 
   CONTAINER_NAME: app-image
   
@@ -80,16 +80,16 @@ jobs:
             echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
 
-        - name: Download task definition
-          run: |
-           aws ecs describe-task-definition --task-definition jb_task_def:1 --query taskDefinition > task-definition.json
+        # - name: Download task definition
+        #   run: |
+        #    aws ecs describe-task-definition --task-definition jb_task_def:1 --query taskDefinition > task-definition.json
 
 
         - name: Fill in the new image ID in the Amazon ECS task definition
           id: task-def
           uses: aws-actions/amazon-ecs-render-task-definition@v1
           with:
-            task-definition: task-definition.json
+            task-definition: ${{env.ECS_TASK_DEFINITION}}
             container-name: ${{ env.CONTAINER_NAME }}
             image: ${{ steps.build-image.outputs.image }}
 
