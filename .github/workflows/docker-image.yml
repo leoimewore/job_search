@@ -9,7 +9,7 @@ on:
 env: 
   ECS_SERVICE: jb_search_service
 
-  ECS_CLUSTER: app_cluster
+  ECS_CLUSTER: app-cluster
   
   ECS_TASK_DEFINITION: .github/workflows/task-definition.json
 
