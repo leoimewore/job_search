@@ -5,25 +5,84 @@ on:
   push:
     branches: [ "main" ]
 
+
+
+env:
+  IMAGE_TAG: v.${{github.sha}}
+
 jobs:
   build:
     name: Build and Deploy Docker App
     runs-on: ubuntu-latest
 
+
+
+
     steps:
       - name: Check out code
         uses: actions/checkout@v4
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          push: true
+          tags: leoimewore/job_search:$IMAGE_TAG
+
+
+      
+
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v4
+      #   with:
+      #     aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+      #     aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+      #     aws-region: us-east-1
+
+
+
+      - name: Beanstalk Deploy
+  # You may pin to the exact commit or the version.
+  # uses: einaregilsson/beanstalk-deploy@18e5b85bd914cabf00fccabe72f60b8757dcd3cb
+        uses: einaregilsson/beanstalk-deploy@v21
         with:
           aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: us-east-1
+    # AWS Access Key
+    
+    # Beanstalk application name
+    application_name: 
+    # Beanstalk environment name. If empty a version will be created but not deployed anywhere.
+    environment_name: # optional
+    # Version label for new Beanstalk version
+    version_label: 
+    # Version description for the new Beanstalk version
+    version_description: # optional
+    # Zip file with the version to deploy. If skipped the action will deploy existing version.
+    deployment_package: # optional
+    # Whether the action should skip creating a new bucket and use the given one to upload the deployment package to instead. When omitted the actions will (try to) create a new one during deployment.
+    existing_bucket_name: # optional
+    # If set to "true" then the action will deploy an existing version with the given version_label if it already exists, but otherwise create the version and deploy it. If set to true for an action with no environment name it will upload a version if it does not exist already, but do nothing if the version already exists.
+    use_existing_version_if_available: # optional
+    # Whether the action should wait for the deployment to finish and log status messages during the wait. Default is "true". If set to "false" the action will start the deployment on Beanstalk and then exit.
+    wait_for_deployment: # optional
+    # How many seconds to wait for the environment to return to Green state after deployment is finished. Default is 30 seconds.
+    wait_for_environment_recovery: # optional
+          
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
-        with:
-          mask-password: 'false'
+
+      
+
+      
     
