@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          tags: leoimewore/job_search:$IMAGE_TAG
+          tags: leoimewore/job_search:latest
 
 
       
