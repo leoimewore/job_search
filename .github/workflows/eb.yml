@@ -60,7 +60,7 @@ jobs:
           aws_secret_key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           region: us-east-1
           application_name: job-search-Application
-          environment: Job-search-Application-test
+          environment_name: Job-search-Application-test
           version_label: "app-7380-240407_214523274973"
     # AWS Access Key
     
