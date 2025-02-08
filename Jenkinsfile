@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE = 'job_search'
+        DOCKER_IMAGE = '691490196261.dkr.ecr.us-east-2.amazonaws.com/dev/devops_cloud_repo'
         AWS_REGION = "us-east-2"
         ECR_REPOSITORY = "dev/devops_cloud_repo"
         Credentials = "jenkins_ecr"
