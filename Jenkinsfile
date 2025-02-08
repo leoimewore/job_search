@@ -33,29 +33,29 @@ pipeline {
             }
         }
         
-        stage('Connect to AWS ECR'){
-            steps {
-                script {
-                        withCredentials([aws(credentialsId: 'jenkins_ecr_id', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                            env.AWS_ACCOUNT_ID = sh(
-                    script: "aws sts get-caller-identity --query Account --output text",
-                    returnStdout: true
-                ).trim()
+    //     stage('Connect to AWS ECR'){
+    //         steps {
+    //             script {
+    //                     withCredentials([aws(credentialsId: 'jenkins_ecr_id', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+    //                         env.AWS_ACCOUNT_ID = sh(
+    //                 script: "aws sts get-caller-identity --query Account --output text",
+    //                 returnStdout: true
+    //             ).trim()
                 
-                echo "Using AWS Account ID: ${env.AWS_ACCOUNT_ID}"
-                        sh """
-                            aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${env.AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
-                        """
-                    }
-                }
-            }
-        }
+    //             echo "Using AWS Account ID: ${env.AWS_ACCOUNT_ID}"
+    //                     sh """
+    //                         aws ecr get-login-password --region ${AWS_REGION} | docker login --username AWS --password-stdin ${env.AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com
+    //                     """
+    //                 }
+    //             }
+    //         }
+    //     }
         
-    }
+    // }
 
-    post {
-        always {
-            sh 'docker system prune -a -f'
-        }
-    }
+    // post {
+    //     always {
+    //         sh 'docker system prune -a -f'
+    //     }
+    // }
 }
