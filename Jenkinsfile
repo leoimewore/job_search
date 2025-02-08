@@ -36,7 +36,7 @@ pipeline {
         stage('Connect to AWS ECR'){
             steps {
                 script {
-                        withCredentials([aws(credentialsId: 'jenkins_ecr_id', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                        withCredentials([aws(credentialsId: 'jenkins_ecr', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                             env.AWS_ACCOUNT_ID = sh(
                     script: "aws sts get-caller-identity --query Account --output text",
                     returnStdout: true
