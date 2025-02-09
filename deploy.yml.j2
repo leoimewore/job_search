@@ -1,0 +1,26 @@
+- name: Apply Kubernetes Deployment
+  community.kubernetes.k8s:
+    kubeconfig: "/home/ec2-user/.kube/config"
+    state: present
+    definition:
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: job-search
+      spec:
+        replicas: 3
+        selector:
+          matchLabels:
+            app: job-search
+        template:
+          metadata:
+            labels:
+              app: job-search
+          spec:
+            imagePullSecrets:
+              - name: ecr-secrets
+            containers:
+              - name: job-search
+                image: "{{image}}"
+                ports:
+                  - containerPort: 3000

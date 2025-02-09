@@ -12,7 +12,7 @@
         docker login --username AWS --password-stdin {{ AWS_ACCOUNT_ID }}.dkr.ecr.{{ AWS_REGION }}.amazonaws.com 
     - name: Generate Kubernetes Deployment YAML
       template:
-        src: deployment.yml.j2
+        src: deploy.yml.j2
         dest: ./deployment.yml
 
     - name: Apply Kubernetes Deployment
