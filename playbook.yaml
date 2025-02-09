@@ -15,10 +15,10 @@
         src: deploy.yml.j2
         dest: deployment.yml
 
-    - name: Get a list of namespaces
-      k8s_info:
-        kubeconfig: /home/ubuntu/.kube/config
-        kind: Namespace
+    # - name: Get a list of namespaces
+    #   k8s_info:
+    #     kubeconfig: /home/ubuntu/.kube/config
+    #     kind: Namespace
 
    
     # - name: Generate Kubernetes Deployment YAML
@@ -47,7 +47,7 @@
     #   debug:
     #     var: kubectl_output
 
-    # - name: Apply Kubernetes Deployment
-    #   command: kubectl apply -f ./deployment.yml
-    #   environment:
-    #     KUBECONFIG: /home/ec2-user/.kube/config
+    - name: Apply Kubernetes Deployment
+      command: kubectl apply -f ./deployment.yml
+      environment:
+        KUBECONFIG: /home/ec2-user/.kube/config
