@@ -6,7 +6,7 @@ pipeline {
         AWS_REGION = "us-east-2"
         ECR_REPOSITORY = "dev/devops_cloud_repo"
         Credentials = "jenkins_ecr_id"
-        ANSIBLE_SSH_KEY = credentials('ansible_private')        
+               
     }
 
     stages {
@@ -53,7 +53,7 @@ pipeline {
             steps {
 
                 sh """
-                ansible-playbook -i /etc/ansible/hosts playbook.yaml --private-key $ANSIBLE_SSH_KEY --disableHostKeyChecking true \
+                ansible-playbook -i /etc/ansible/hosts playbook.yaml --private-key $ANSIBLE_SSH_KEY  \
                 -e "image=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${DOCKER_IMAGE}-${DOCKER_TAG}"
 
                 """
