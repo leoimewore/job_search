@@ -14,11 +14,7 @@
       template:
         src: deploy.yml.j2
         dest: ./deployment.yml
-    - name: Deploy App on Kubernetes
-      k8s: 
-        kubeconfig: "/home/ec2-user/.kube/config"
-        state: present
-        src: ./deployment.yaml
+   
     # - name: Generate Kubernetes Deployment YAML
     #   template:
     #     src: deploy.yml.j2
