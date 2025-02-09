@@ -2,8 +2,8 @@
 
 - hosts: kubectl_server
   become: yes
-  vars_files:
-    - vars/aws.yml
+  vars:
+    AWS_REGION: "us-east-2"
   name: Deploy Application on EKS
   tasks:
     - name: Authenticate Docker with AWS ECR

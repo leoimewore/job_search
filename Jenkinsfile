@@ -54,7 +54,7 @@ pipeline {
 
                 sh """
                 ansible-playbook -i /etc/ansible/hosts playbook.yaml --private-key $ANSIBLE_SSH_KEY  \
-                -e "image=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${DOCKER_IMAGE}-${DOCKER_TAG}"
+                -e "image=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${DOCKER_IMAGE}-${DOCKER_TAG} AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}"
 
                 """
             }
