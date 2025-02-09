@@ -29,7 +29,7 @@ spec:
       imagePullSecrets:
       - name: ecr-secrets
       containers:
-      - image: {{image}}
+      - image: "{{image}}"
         imagePullPolicy: Always
         name: job-search
         ports:

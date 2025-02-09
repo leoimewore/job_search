@@ -53,6 +53,7 @@ pipeline {
             steps {
 
                 sh """
+                echo ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${DOCKER_IMAGE}-${DOCKER_TAG}
                 ansible-playbook playbook.yaml \
                 -e "image=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${DOCKER_IMAGE}-${DOCKER_TAG}"
 
