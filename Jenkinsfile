@@ -5,7 +5,7 @@ pipeline {
         DOCKER_IMAGE = 'job_search'
         AWS_REGION = "us-east-2"
         ECR_REPOSITORY = "dev/devops_cloud_repo"
-        Credentials = "jenkins_ecr"
+        Credentials = "jenkins_ecr_id"
         ANSIBLE_SSH_KEY = credentials('ansible_private')        
     }
 
@@ -30,7 +30,7 @@ pipeline {
         stage('Connect to AWS ECR'){
             steps {
                 script {
-                        withCredentials([aws(credentialsId: 'jenkins_ecr', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                        withCredentials([aws(credentialsId: 'jenkins_ecr_id', accessKeyVariable: 'AWS_ACCESS_KEY_ID', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
                             env.AWS_ACCOUNT_ID = sh(
                     script: "aws sts get-caller-identity --query Account --output text",
                     returnStdout: true
