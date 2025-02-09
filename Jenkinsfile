@@ -49,6 +49,17 @@ pipeline {
             }
         }
 
+        stage('Run Ansible to Configure AKS') {
+            steps {
+
+                sh """
+                ansible-playbook playbook.yaml \
+                -e "image=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${DOCKER_IMAGE}-${DOCKER_TAG}"
+
+                """
+            }
+        }
+
 
     }
         
