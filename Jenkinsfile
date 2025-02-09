@@ -57,6 +57,8 @@ pipeline {
                 -e "image=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${ECR_REPOSITORY}:${DOCKER_IMAGE}-${DOCKER_TAG} AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}"
 
                 """
+
+                sh 'kubectl'
             }
         }
 
