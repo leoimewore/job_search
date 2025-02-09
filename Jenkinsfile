@@ -6,7 +6,7 @@ pipeline {
         AWS_REGION = "us-east-2"
         ECR_REPOSITORY = "dev/devops_cloud_repo"
         Credentials = "jenkins_ecr_id"
-               
+        ANSIBLE_SSH_KEY = credentials('ansible_private')        
     }
 
     stages {
