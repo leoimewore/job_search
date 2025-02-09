@@ -15,7 +15,15 @@
         src: deploy.yml.j2
         dest: ./deployment.yml
 
-    - name: Apply Kubernetes Deployment
-      command: kubectl apply -f ./deployment.yml
-      environment:
-        KUBECONFIG: /home/ec2-user/.kube/config
+    - name: Ensure kubeconfig is correct
+      command: cat /home/ec2-user/.kube/config
+      register: kubeconfig_output
+
+    - name: Show kubeconfig
+      debug:
+        var: kubeconfig_output.stdout
+
+    # - name: Apply Kubernetes Deployment
+    #   command: kubectl apply -f ./deployment.yml
+    #   environment:
+    #     KUBECONFIG: /home/ec2-user/.kube/config
