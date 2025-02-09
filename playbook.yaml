@@ -17,3 +17,5 @@
 
     - name: Apply Kubernetes Deployment
       command: kubectl apply -f ./deployment.yml
+      environment:
+        KUBECONFIG: /home/ec2-user/.kube/config
