@@ -14,27 +14,36 @@
       template:
         src: deploy.yml.j2
         dest: ./deployment.yml
+    - name: Deploy App on Kubernetes
+      k8s: 
+        kubeconfig: "/home/ec2-user/.kube/config"
+        state: present
+        src: ./deployment.yaml
+    # - name: Generate Kubernetes Deployment YAML
+    #   template:
+    #     src: deploy.yml.j2
+    #     dest: ./deployment.yml
 
-    - name: Ensure kubeconfig is correct
-      command: cat /home/ec2-user/.kube/config
-      register: kubeconfig_output
+    # - name: Ensure kubeconfig is correct
+    #   command: cat /home/ec2-user/.kube/config
+    #   register: kubeconfig_output
 
-    - name: Show kubeconfig
-      debug:
-        var: kubeconfig_output.stdout
+    # - name: Show kubeconfig
+    #   debug:
+    #     var: kubeconfig_output.stdout
 
-    - name: Apply Kubernetes Deployment
-      command: kubectl apply -f ./deployment.yml
-      environment:
-        AWS_ACCESS_KEY_ID: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
-        AWS_SECRET_ACCESS_KEY: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
-        AWS_DEFAULT_REGION: "{{ lookup('env', 'AWS_DEFAULT_REGION') }}"
-      register: kubectl_output
-      ignore_errors: yes
+    # - name: Apply Kubernetes Deployment
+    #   command: kubectl apply -f ./deployment.yml
+    #   environment:
+    #     AWS_ACCESS_KEY_ID: "{{ lookup('env', 'AWS_ACCESS_KEY_ID') }}"
+    #     AWS_SECRET_ACCESS_KEY: "{{ lookup('env', 'AWS_SECRET_ACCESS_KEY') }}"
+    #     AWS_DEFAULT_REGION: "{{ lookup('env', 'AWS_DEFAULT_REGION') }}"
+    #   register: kubectl_output
+    #   ignore_errors: yes
 
-    - name: Debug kubectl output
-      debug:
-        var: kubectl_output
+    # - name: Debug kubectl output
+    #   debug:
+    #     var: kubectl_output
 
     # - name: Apply Kubernetes Deployment
     #   command: kubectl apply -f ./deployment.yml
